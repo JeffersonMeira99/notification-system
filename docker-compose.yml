@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: 'mysql://bd-user-notification:task1234@mysql:3306/bd_notification'
+      REDIS_URL: 'redis://redis:6379'
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:8.0.39
+    environment:
+      MYSQL_ROOT_PASSWORD: "task1234@"   # Defina a senha do root aqui
+      MYSQL_DATABASE: "bd_notification"     # Banco de dados a ser criado
+      MYSQL_USER: "bd-user-notification"    # Nome do usuário
+      MYSQL_PASSWORD: "task1234"            # Senha do usuário
+    ports:
+      - '3306:3306'
+
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
