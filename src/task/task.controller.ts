@@ -32,11 +32,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  async deleteTask(@Param('id') id: number): Promise<void> {
-    try {
-      await this.tasksService.deleteTask(id);
-    } catch (error) {
-      throw new HttpException('Erro ao excluir tarefa', HttpStatus.NOT_FOUND);
-    }
+  async deleteTask(@Param('id') id: number) {
+    await this.tasksService.deleteTask(id);
   }
 }

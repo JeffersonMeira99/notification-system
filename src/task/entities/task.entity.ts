@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { TaskAudit } from './task-audit.entity';
 
 @Entity('tasks')
 export class Task {
@@ -28,4 +30,7 @@ export class Task {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => TaskAudit, (taskAudit) => taskAudit.task)
+  audits: TaskAudit[];
 }

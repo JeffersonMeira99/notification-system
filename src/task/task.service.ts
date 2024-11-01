@@ -1,16 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bullmq';
 import { Task } from './entities/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskAudit } from './entities/task-audit.entity';
 
 @Injectable()
 export class TasksService {
   constructor(
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
+    @InjectRepository(TaskAudit)
+    private taskAuditRepository: Repository<TaskAudit>,
     @InjectQueue('notification') private notificationQueue: Queue,
   ) {}
 
@@ -38,6 +41,12 @@ export class TasksService {
   }
 
   async deleteTask(id: number) {
-    await this.tasksRepository.delete(id);
+    await this.taskAuditRepository.delete({ taskId: id });
+
+    const result = await this.tasksRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with id ${id} not found`);
+    }
   }
 }
