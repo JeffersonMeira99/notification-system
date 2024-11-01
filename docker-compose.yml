@@ -15,8 +15,8 @@ services:
   mysql:
     image: mysql:8.0.39
     environment:
-      MYSQL_ROOT_PASSWORD: "task1234@"   # Defina a senha do root aqui
-      MYSQL_DATABASE: "bd_notification"     # Banco de dados a ser criado
+      MYSQL_ROOT_PASSWORD: "task1234@"      # Senha do root aqui
+      MYSQL_DATABASE: "bd_notification"     # Database
       MYSQL_USER: "bd-user-notification"    # Nome do usuário
       MYSQL_PASSWORD: "task1234"            # Senha do usuário
     ports:

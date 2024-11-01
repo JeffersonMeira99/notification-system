@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
 
 export class CreateTaskDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'O título é obrigatório.' })
+  @IsString({ message: 'O título deve ser uma string.' })
   title: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: 'A descrição é obrigatória.' })
+  @IsString({ message: 'A descrição deve ser uma string.' })
   description: string;
 
-  @IsNotEmpty()
-  @IsEmail()
+  @IsNotEmpty({ message: 'O e-mail do usuário é obrigatório.' })
+  @IsEmail({}, { message: 'O e-mail fornecido não é válido.' })
   userEmail: string;
 }

@@ -41,8 +41,9 @@ npm run start:prod
 
 Task Entity
 Task Service
-Notification Processor
+Task Controller
 DTOs (CreateTaskDto e UpdateTaskDto)
+Notification Processor
 
 
 ## 6. Uso da API
